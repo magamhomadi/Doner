@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل دخول الإدارة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #dc3545;
+            --dark-red: #a71d2a;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --text-color: #343a40;
+            --heading-color: #212529;
+            --border-color: #ced4da;
+            --shadow-subtle: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            direction: rtl;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px var(--shadow-subtle);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary-red);
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--heading-color);
+        }
+
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 12px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Tajawal', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+        }
+
+        .login-button {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        .login-button:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            display: none;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>تسجيل دخول الإدارة</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" required placeholder="admin@example.com">
+            </div>
+            <div class="form-group">
+                <label for="password">كلمة المرور:</label>
+                <input type="password" id="password" required placeholder="********">
+            </div>
+            <button type="submit" class="login-button">تسجيل الدخول</button>
+        </form>
+        <div id="loginMessage" class="message error"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBy1CbscoYB9Z9yo21230nhUeGDm7xBcXA",
+            authDomain: "docmagam.firebaseapp.com",
+            projectId: "docmagam",
+            storageBucket: "docmagam.firebasestorage.app",
+            messagingSenderId: "643175087125",
+            appId: "1:643175087125:web:da49e8ce6cc09dbba3a21c",
+            measurementId: "G-EJG80HC50P"
+        };
+
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginMessage = document.getElementById('loginMessage');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            loginMessage.style.display = 'none';
+
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                // Redirect to admin dashboard on successful login
+                window.location.href = 'admin-dashboard.html'; // اسم صفحة الإدارة
+            } catch (error) {
+                let errorMessage = 'حدث خطأ في تسجيل الدخول. الرجاء التحقق من البريد الإلكتروني وكلمة المرور.';
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'صيغة البريد الإلكتروني غير صحيحة.';
+                }
+                loginMessage.textContent = errorMessage;
+                loginMessage.style.display = 'block';
+                console.error("Login Error:", error);
+            }
+        });
+
+        // Check if user is already logged in
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // If user is logged in, redirect directly to dashboard
+                window.location.href = 'admin-dashboard.html';
+            }
+        });
+    </script>
+</body>
+      </html>
