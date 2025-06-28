@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل دخول الإدارة</title>
+    <title>إدارة بيانات المتبرعين</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
@@ -17,39 +17,155 @@
             --heading-color: #212529;
             --border-color: #ced4da;
             --shadow-subtle: rgba(0, 0, 0, 0.1);
+            --table-border-color: #e0e0e0;
+            --table-header-bg: var(--primary-red);
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
             margin: 0;
             background-color: var(--light-gray);
             color: var(--text-color);
+            text-align: center;
+            line-height: 1.6;
+            padding: 30px 0;
             direction: rtl;
         }
 
-        .login-container {
+        .container {
             background-color: #fff;
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 5px 20px var(--shadow-subtle);
-            max-width: 450px;
+            max-width: 90%;
+            width: 900px; /* زيادة العرض لاستيعاب الجدول بشكل أفضل */
+            box-sizing: border-box;
+            margin-top: 50px;
+            display: none; /* مخفي مبدئياً حتى يتم إدخال كلمة المرور */
+        }
+
+        /* تنسيق بوابة كلمة المرور */
+        #password-gate {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px var(--shadow-subtle);
+            max-width: 500px;
             width: 90%;
             text-align: center;
+            margin-top: 100px;
         }
+
+        #password-gate h2 {
+            color: var(--heading-color);
+            margin-bottom: 25px;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        #password-gate input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-family: 'Tajawal', sans-serif;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #password-gate button {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+
+        #password-gate button:hover {
+            background-color: var(--dark-red);
+        }
+
+        #passwordMessage {
+            color: var(--primary-red);
+            margin-top: 15px;
+            font-weight: 700;
+            display: none;
+        }
+
 
         h1 {
             color: var(--primary-red);
             margin-bottom: 30px;
-            font-size: 2.2em;
+            font-size: 2.5em;
             font-weight: 700;
         }
 
+        /* تنسيق الأزرار (عام للصفحة) */
+        .button-group {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .action-button {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            flex-grow: 1;
+            max-width: 250px;
+        }
+
+        .action-button:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
+        }
+
+        /* نموذج إضافة متبرع */
+        .add-donor-form {
+            background-color: var(--medium-gray);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: inset 0 1px 5px rgba(0,0,0,0.05);
+            text-align: right;
+        }
+
+        .add-donor-form h2 {
+            color: var(--heading-color);
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .add-donor-form form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 0;
+            flex: 1;
+            min-width: 280px;
             text-align: right;
         }
 
@@ -57,13 +173,93 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 700;
-            color: var(--heading-color);
+            color: var(--text-color);
         }
 
-        .form-group input[type="email"],
-        .form-group input[type="password"] {
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group select {
             width: 100%;
             padding: 12px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Tajawal', sans-serif;
+            color: var(--text-color);
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="date"],
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%2C114.7L154.5%2C247.3c-2.3%2C2.3-5.3%2C3.5-8.5%2C3.5s-6.2-1.2-8.5-3.5L5.4%2C114.7c-4.6-4.6-4.6-12%2C0-16.6s12-4.6%2C16.6%2C0L146%2C208.5c2.3%2C2.3%2C6.2%2C2.3%2C8.5%2C0l123.9-123.9c4.6-4.6%2C12-4.6%2C16.6%2C0S291.6%2C110.1%2C287%2C114.7z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: left 12px center;
+            background-size: 12px;
+            padding-left: 30px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+        }
+
+        .add-donor-button {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: auto;
+            margin-top: 10px;
+        }
+
+        .add-donor-button:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
+        }
+
+        /* قسم قائمة المتبرعين */
+        .donors-list-section {
+            padding-top: 20px;
+            text-align: right;
+            margin-top: 40px;
+        }
+
+        .donors-list-section h2 {
+            color: var(--heading-color);
+            margin-bottom: 25px;
+            font-size: 2em;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .search-group {
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .search-group input {
+            flex-grow: 1;
+            max-width: 500px;
+            padding: 12px 15px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 1em;
@@ -71,36 +267,123 @@
             box-sizing: border-box;
         }
 
-        .form-group input:focus {
-            border-color: var(--primary-red);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
-        }
-
-        .login-button {
+        .search-group button {
             background-color: var(--primary-red);
             color: white;
-            padding: 15px 30px;
+            padding: 12px 25px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 700;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: 100%;
+            transition: background-color 0.3s ease;
         }
-
-        .login-button:hover {
+        .search-group button:hover {
             background-color: var(--dark-red);
-            transform: translateY(-2px);
         }
 
-        .message {
+        .donors-table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
-            padding: 10px;
+            box-shadow: 0 2px 10px var(--shadow-subtle);
             border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .donors-table th, .donors-table td {
+            border: 1px solid var(--table-border-color);
+            padding: 12px 15px;
+            text-align: right;
+            vertical-align: middle;
+        }
+
+        .donors-table thead th {
+            background-color: var(--table-header-bg);
+            color: white;
             font-weight: 700;
-            display: none;
+            text-align: center;
+            padding: 15px 15px;
+        }
+
+        .donors-table thead tr:first-child th:first-child {
+            border-top-right-radius: 8px;
+        }
+        .donors-table thead tr:first-child th:last-child {
+            border-top-left-radius: 8px;
+        }
+
+        .donors-table tbody tr:nth-child(even) {
+            background-color: var(--medium-gray);
+        }
+
+        .donors-table tbody tr:hover {
+            background-color: #d6d6d6;
+        }
+
+        .donors-table .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap; /* للسماح للأزرار بالانتقال لسطر جديد على الشاشات الصغيرة */
+        }
+
+        .donors-table .action-buttons button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            white-space: nowrap; /* يمنع الكلمات من الالتفاف */
+        }
+
+        .donors-table .edit-btn {
+            background-color: #007bff; /* أزرق */
+            color: white;
+        }
+
+        .donors-table .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .donors-table .delete-btn {
+            background-color: var(--primary-red);
+            color: white;
+        }
+
+        .donors-table .delete-btn:hover {
+            background-color: var(--dark-red);
+        }
+
+        .no-donors-message, .loading-message {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        .loading-message {
+            color: var(--primary-red);
+            font-size: 1.2em;
+        }
+
+        /* تنسيق رسائل التأكيد/الخطأ */
+        .message {
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
         .message.error {
@@ -109,39 +392,135 @@
             border: 1px solid #f5c6cb;
         }
 
-        @media (max-width: 480px) {
-            .login-container {
+        @media (max-width: 768px) {
+            .container, #password-gate {
                 padding: 30px 20px;
+                margin-top: 30px;
             }
             h1 {
-                font-size: 1.8em;
+                font-size: 2em;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            .action-button {
+                width: 100%;
+            }
+            .add-donor-form form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .form-group {
+                min-width: unset;
+                width: 100%;
+            }
+            .form-group input[type="text"],
+            .form-group input[type="tel"],
+            .form-group input[type="date"],
+            .form-group select {
+                width: 100%;
+            }
+            .search-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .search-group input, .search-group button {
+                max-width: 100%;
+                width: 100%;
+            }
+            .donors-table {
+                font-size: 0.8em;
+            }
+            .donors-table th, .donors-table td {
+                padding: 8px;
+                word-break: break-word;
+            }
+            /* إخفاء بعض الأعمدة على الشاشات الصغيرة لتحسين العرض */
+            .donors-table th:nth-child(2), /* العنوان */
+            .donors-table td:nth-child(2) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .donors-table th:nth-child(5), /* تاريخ آخر تبرع */
+            .donors-table td:nth-child(5) {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>تسجيل دخول الإدارة</h1>
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email">البريد الإلكتروني:</label>
-                <input type="email" id="email" required placeholder="admin@example.com">
+
+    <div id="password-gate">
+        <h2>أدخل كلمة المرور للدخول</h2>
+        <input type="password" id="adminPassword" placeholder="كلمة المرور">
+        <button id="loginButton">دخول</button>
+        <p id="passwordMessage" class="message error" style="display: none;"></p>
+    </div>
+
+    <div class="container">
+        <h1>إدارة بيانات المتبرعين</h1>
+
+        <div class="add-donor-form">
+            <h2 id="formTitle">إضافة متبرع جديد</h2>
+            <form id="addDonorForm">
+                <input type="hidden" id="donorIdToEdit"> <div class="form-group">
+                    <label for="name">الاسم الكامل:</label>
+                    <input type="text" id="name" required placeholder="مثال: أحمد علي">
+                </div>
+                <div class="form-group">
+                    <label for="address">العنوان:</label>
+                    <input type="text" id="address" required placeholder="مثال: صنعاء، شارع الزبيري">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">رقم الهاتف:</label>
+                    <input type="tel" id="phoneNumber" placeholder="مثال: 771234567" pattern="[0-9]{9,}" required title="الرجاء إدخال 9 أرقام على الأقل.">
+                </div>
+                <div class="form-group">
+                    <label for="bloode">فصيلة الدم:</label>
+                    <select id="bloode" required>
+                        <option value="">اختر فصيلة الدم</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lastDonationDate">تاريخ آخر عملية تبرع:</label>
+                    <input type="date" id="lastDonationDate" required>
+                </div>
+                <button type="submit" class="add-donor-button">إضافة متبرع</button>
+            </form>
+            <div id="formMessage" class="message" style="display:none;"></div>
+        </div>
+
+        <div class="donors-list-section">
+            <h2>قائمة المتبرعين الحاليين</h2>
+            <div class="search-group">
+                <input type="text" id="searchDonorInput" placeholder="ابحث باسم المتبرع...">
+                <button id="searchButton">بحث</button>
             </div>
-            <div class="form-group">
-                <label for="password">كلمة المرور:</label>
-                <input type="password" id="password" required placeholder="********">
+            <div id="donorsList">
+                <p class="no-donors-message">لا يوجد متبرعون لعرضهم.</p>
             </div>
-            <button type="submit" class="login-button">تسجيل الدخول</button>
-        </form>
-        <div id="loginMessage" class="message error"></div>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+
     <script>
+        // إعدادات Firebase الخاصة بك
         const firebaseConfig = {
-            apiKey: "AIzaSyBy1CbscoYB9Z9yo21230nhUeGDm7xBcXA",
+            apiKey: "AIzaSyBy1CbscoYB9Z9yo21230nhUeGDm7xBcXA", // استبدل بـ API Key الخاص بك
             authDomain: "docmagam.firebaseapp.com",
+            databaseURL: "https://docmagam-default-rtdb.firebaseio.com",
             projectId: "docmagam",
             storageBucket: "docmagam.firebasestorage.app",
             messagingSenderId: "643175087125",
@@ -149,45 +528,69 @@
             measurementId: "G-EJG80HC50P"
         };
 
+        // تهيئة Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const loginMessage = document.getElementById('loginMessage');
+        // الحصول على عناصر DOM
+        const passwordGate = document.getElementById('password-gate');
+        const adminPasswordInput = document.getElementById('adminPassword');
+        const loginButton = document.getElementById('loginButton');
+        const passwordMessage = document.getElementById('passwordMessage');
+        const mainContainer = document.querySelector('.container');
 
-        loginForm.addEventListener('submit', async (e) => {
+        const donorsListDiv = document.getElementById('donorsList');
+        const addDonorForm = document.getElementById('addDonorForm');
+        const formMessage = document.getElementById('formMessage');
+        const formTitle = document.getElementById('formTitle');
+        const donorIdToEdit = document.getElementById('donorIdToEdit');
+        const addDonorButton = addDonorForm.querySelector('.add-donor-button');
+
+        const searchDonorInput = document.getElementById('searchDonorInput');
+        const searchButton = document.getElementById('searchButton');
+
+        /* دالة لعرض رسائل النجاح/الخطأ */
+        const showMessage = (message, type) => {
+            formMessage.textContent = message;
+            formMessage.className = `message ${type}`;
+            formMessage.style.display = 'block';
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 3000); // إخفاء الرسالة بعد 3 ثوانٍ
+        };
+
+        /* بوابة كلمة المرور */
+        loginButton.addEventListener('click', () => {
+            if (adminPasswordInput.value === 'magam') {
+                passwordGate.style.display = 'none';
+                mainContainer.style.display = 'block'; // عرض المحتوى الرئيسي
+                displayDonors(); // عرض قائمة المتبرعين بعد الدخول
+            } else {
+                passwordMessage.textContent = 'كلمة مرور خاطئة. حاول مرة أخرى.';
+                passwordMessage.style.display = 'block';
+            }
+        });
+
+        /* دالة لإضافة/تعديل متبرع */
+        addDonorForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = emailInput.value;
-            const password = passwordInput.value;
 
-            loginMessage.style.display = 'none';
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const bloode = document.getElementById('bloode').value;
+            const lastDonationDateInput = document.getElementById('lastDonationDate').value;
+            const idToEdit = donorIdToEdit.value; // الحصول على ID إذا كان الوضع تعديل
+
+            let lastDonationTimestamp = null;
+            if (lastDonationDateInput) {
+                // التأكد من تحليل التاريخ بشكل صحيح لـ Firebase Timestamp
+                const dateObject = new Date(lastDonationDateInput + 'T00:00:00');
+                lastDonationTimestamp = firebase.firestore.Timestamp.fromDate(dateObject);
+            }
 
             try {
-                await auth.signInWithEmailAndPassword(email, password);
-                // Redirect to admin dashboard on successful login
-                window.location.href = 'admin-dashboard.html'; // اسم صفحة الإدارة
-            } catch (error) {
-                let errorMessage = 'حدث خطأ في تسجيل الدخول. الرجاء التحقق من البريد الإلكتروني وكلمة المرور.';
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
-                } else if (error.code === 'auth/invalid-email') {
-                    errorMessage = 'صيغة البريد الإلكتروني غير صحيحة.';
-                }
-                loginMessage.textContent = errorMessage;
-                loginMessage.style.display = 'block';
-                console.error("Login Error:", error);
-            }
-        });
-
-        // Check if user is already logged in
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                // If user is logged in, redirect directly to dashboard
-                window.location.href = 'admin-dashboard.html';
-            }
-        });
-    </script>
-</body>
-      </html>
+                if (idToEdit) {
+                    // تحديث متبرع موجود
+                    await db.collection("Doner").doc(idToEdit).update({
+                 
