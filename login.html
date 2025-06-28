@@ -42,13 +42,12 @@
             border-radius: 12px;
             box-shadow: 0 5px 20px var(--shadow-subtle);
             max-width: 90%;
-            width: 900px; /* زيادة العرض لاستيعاب الجدول بشكل أفضل */
+            width: 900px;
             box-sizing: border-box;
             margin-top: 50px;
-            display: none; /* مخفي مبدئياً حتى يتم إدخال كلمة المرور */
+            display: none;
         }
 
-        /* تنسيق بوابة كلمة المرور */
         #password-gate {
             background-color: #fff;
             padding: 40px;
@@ -109,7 +108,6 @@
             font-weight: 700;
         }
 
-        /* تنسيق الأزرار (عام للصفحة) */
         .button-group {
             margin-bottom: 30px;
             display: flex;
@@ -136,7 +134,6 @@
             transform: translateY(-2px);
         }
 
-        /* نموذج إضافة متبرع */
         .add-donor-form {
             background-color: var(--medium-gray);
             padding: 30px;
@@ -233,7 +230,6 @@
             transform: translateY(-2px);
         }
 
-        /* قسم قائمة المتبرعين */
         .donors-list-section {
             padding-top: 20px;
             text-align: right;
@@ -325,7 +321,7 @@
             display: flex;
             gap: 8px;
             justify-content: center;
-            flex-wrap: wrap; /* للسماح للأزرار بالانتقال لسطر جديد على الشاشات الصغيرة */
+            flex-wrap: wrap;
         }
 
         .donors-table .action-buttons button {
@@ -336,11 +332,11 @@
             font-size: 0.9em;
             font-weight: 600;
             transition: background-color 0.3s ease;
-            white-space: nowrap; /* يمنع الكلمات من الالتفاف */
+            white-space: nowrap;
         }
 
         .donors-table .edit-btn {
-            background-color: #007bff; /* أزرق */
+            background-color: #007bff;
             color: white;
         }
 
@@ -369,7 +365,6 @@
             font-size: 1.2em;
         }
 
-        /* تنسيق رسائل التأكيد/الخطأ */
         .message {
             padding: 15px;
             margin-top: 20px;
@@ -435,15 +430,14 @@
                 padding: 8px;
                 word-break: break-word;
             }
-            /* إخفاء بعض الأعمدة على الشاشات الصغيرة لتحسين العرض */
-            .donors-table th:nth-child(2), /* العنوان */
+            .donors-table th:nth-child(2),
             .donors-table td:nth-child(2) {
                 display: none;
             }
         }
 
         @media (max-width: 480px) {
-            .donors-table th:nth-child(5), /* تاريخ آخر تبرع */
+            .donors-table th:nth-child(5),
             .donors-table td:nth-child(5) {
                 display: none;
             }
@@ -465,7 +459,8 @@
         <div class="add-donor-form">
             <h2 id="formTitle">إضافة متبرع جديد</h2>
             <form id="addDonorForm">
-                <input type="hidden" id="donorIdToEdit"> <div class="form-group">
+                <input type="hidden" id="donorIdToEdit">
+                <div class="form-group">
                     <label for="name">الاسم الكامل:</label>
                     <input type="text" id="name" required placeholder="مثال: أحمد علي">
                 </div>
@@ -516,9 +511,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // إعدادات Firebase الخاصة بك
         const firebaseConfig = {
-            apiKey: "AIzaSyBy1CbscoYB9Z9yo21230nhUeGDm7xBcXA", // استبدل بـ API Key الخاص بك
+            apiKey: "AIzaSyBy1CbscoYB9Z9yo21230nhUeGDm7xBcXA",
             authDomain: "docmagam.firebaseapp.com",
             databaseURL: "https://docmagam-default-rtdb.firebaseio.com",
             projectId: "docmagam",
@@ -528,11 +522,9 @@
             measurementId: "G-EJG80HC50P"
         };
 
-        // تهيئة Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // الحصول على عناصر DOM
         const passwordGate = document.getElementById('password-gate');
         const adminPasswordInput = document.getElementById('adminPassword');
         const loginButton = document.getElementById('loginButton');
@@ -549,29 +541,26 @@
         const searchDonorInput = document.getElementById('searchDonorInput');
         const searchButton = document.getElementById('searchButton');
 
-        /* دالة لعرض رسائل النجاح/الخطأ */
         const showMessage = (message, type) => {
             formMessage.textContent = message;
             formMessage.className = `message ${type}`;
             formMessage.style.display = 'block';
             setTimeout(() => {
                 formMessage.style.display = 'none';
-            }, 3000); // إخفاء الرسالة بعد 3 ثوانٍ
+            }, 3000);
         };
 
-        /* بوابة كلمة المرور */
         loginButton.addEventListener('click', () => {
             if (adminPasswordInput.value === 'magam') {
                 passwordGate.style.display = 'none';
-                mainContainer.style.display = 'block'; // عرض المحتوى الرئيسي
-                displayDonors(); // عرض قائمة المتبرعين بعد الدخول
+                mainContainer.style.display = 'block';
+                displayDonors();
             } else {
                 passwordMessage.textContent = 'كلمة مرور خاطئة. حاول مرة أخرى.';
                 passwordMessage.style.display = 'block';
             }
         });
 
-        /* دالة لإضافة/تعديل متبرع */
         addDonorForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -580,17 +569,177 @@
             const phoneNumber = document.getElementById('phoneNumber').value;
             const bloode = document.getElementById('bloode').value;
             const lastDonationDateInput = document.getElementById('lastDonationDate').value;
-            const idToEdit = donorIdToEdit.value; // الحصول على ID إذا كان الوضع تعديل
+            const idToEdit = donorIdToEdit.value;
 
             let lastDonationTimestamp = null;
             if (lastDonationDateInput) {
-                // التأكد من تحليل التاريخ بشكل صحيح لـ Firebase Timestamp
                 const dateObject = new Date(lastDonationDateInput + 'T00:00:00');
                 lastDonationTimestamp = firebase.firestore.Timestamp.fromDate(dateObject);
             }
 
             try {
                 if (idToEdit) {
-                    // تحديث متبرع موجود
                     await db.collection("Doner").doc(idToEdit).update({
-                 
+                        Name: name,
+                        Address: address,
+                        PhoneNumber: phoneNumber,
+                        Bloode: bloode,
+                        LastDonationDate: lastDonationTimestamp
+                    });
+                    showMessage('تم تحديث بيانات المتبرع بنجاح!', 'success');
+                    formTitle.textContent = 'إضافة متبرع جديد';
+                    addDonorButton.textContent = 'إضافة متبرع';
+                    donorIdToEdit.value = '';
+                } else {
+                    await db.collection("Doner").add({
+                        Name: name,
+                        Address: address,
+                        PhoneNumber: phoneNumber,
+                        Bloode: bloode,
+                        LastDonationDate: lastDonationTimestamp,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    showMessage('تمت إضافة المتبرع بنجاح!', 'success');
+                }
+                addDonorForm.reset();
+            } catch (error) {
+                showMessage(`خطأ في العملية: ${error.message}`, 'error');
+                console.error("خطأ في معالجة المتبرع: ", error);
+            }
+        });
+
+        const displayDonors = (searchTerm = '') => {
+            donorsListDiv.innerHTML = '<p class="loading-message">جاري تحميل بيانات المتبرعين...</p>';
+
+            let q = db.collection("Doner").orderBy("Name", "asc");
+
+            if (searchTerm) {
+                q = q.where("Name", ">=", searchTerm)
+                     .where("Name", "<=", searchTerm + '\uf8ff');
+            }
+
+            q.onSnapshot((snapshot) => {
+                if (snapshot.empty) {
+                    donorsListDiv.innerHTML = '<p class="no-donors-message">لا يوجد متبرعون مضافون حاليًا.</p>';
+                    return;
+                }
+
+                let donorsHtml = `
+                    <table class="donors-table">
+                        <thead>
+                            <tr>
+                                <th>الاسم الكامل</th>
+                                <th>العنوان</th>
+                                <th>رقم الهاتف</th>
+                                <th>فصيلة الدم</th>
+                                <th>تاريخ آخر تبرع (ميلادي)</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                snapshot.forEach((doc) => {
+                    const donor = doc.data();
+                    let formattedLastDonationDate = 'غير متوفر';
+
+                    if (donor.LastDonationDate && typeof donor.LastDonationDate.toDate === 'function') {
+                        const dateObj = donor.LastDonationDate.toDate();
+                        formattedLastDonationDate = dateObj.toLocaleDateString('en-GB');
+                    } else if (donor.LastDonationDate) {
+                        try {
+                            const dateObj = new Date(donor.LastDonationDate);
+                            if (!isNaN(dateObj)) {
+                                formattedLastDonationDate = dateObj.toLocaleDateString('en-GB');
+                            }
+                        } catch (e) {
+                            formattedLastDonationDate = String(donor.LastDonationDate);
+                        }
+                    }
+
+                    donorsHtml += `
+                        <tr>
+                            <td>${donor.Name || 'غير متوفر'}</td>
+                            <td>${donor.Address || 'غير متوفر'}</td>
+                            <td>${donor.PhoneNumber || 'غير متوفر'}</td>
+                            <td>${donor.Bloode || 'غير متوفر'}</td>
+                            <td>${formattedLastDonationDate}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="edit-btn" data-id="${doc.id}">تعديل</button>
+                                    <button class="delete-btn" data-id="${doc.id}">حذف</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                donorsHtml += `
+                        </tbody>
+                    </table>
+                `;
+                donorsListDiv.innerHTML = donorsHtml;
+
+                attachDonorActionListeners();
+
+            }, (error) => {
+                donorsListDiv.innerHTML = `<p class="no-donors-message">حدث خطأ أثناء تحميل بيانات المتبرعين: ${error.message}</p>`;
+                console.error("خطأ في جلب المستندات: ", error);
+            });
+        };
+
+        const attachDonorActionListeners = () => {
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    const donorId = e.target.dataset.id;
+                    if (confirm('هل أنت متأكد من حذف هذا المتبرع؟')) {
+                        try {
+                            await db.collection("Doner").doc(donorId).delete();
+                            showMessage('تم حذف المتبرع بنجاح!', 'success');
+                        } catch (error) {
+                            showMessage(`خطأ في الحذف: ${error.message}`, 'error');
+                            console.error("خطأ في حذف المستند: ", error);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    const donorId = e.target.dataset.id;
+                    const donorDoc = await db.collection("Doner").doc(donorId).get();
+                    if (donorDoc.exists) {
+                        const donorData = donorDoc.data();
+                        document.getElementById('name').value = donorData.Name || '';
+                        document.getElementById('address').value = donorData.Address || '';
+                        document.getElementById('phoneNumber').value = donorData.PhoneNumber || '';
+                        document.getElementById('bloode').value = donorData.Bloode || '';
+
+                        if (donorData.LastDonationDate && typeof donorData.LastDonationDate.toDate === 'function') {
+                            const dateObj = donorData.LastDonationDate.toDate();
+                            document.getElementById('lastDonationDate').value = dateObj.toISOString().split('T')[0];
+                        } else {
+                            document.getElementById('lastDonationDate').value = '';
+                        }
+
+                        formTitle.textContent = 'تعديل بيانات المتبرع';
+                        addDonorButton.textContent = 'حفظ التعديلات';
+                        donorIdToEdit.value = donorId;
+                    }
+                });
+            });
+        };
+
+        searchButton.addEventListener('click', () => {
+            const searchTerm = searchDonorInput.value.trim();
+            displayDonors(searchTerm);
+        });
+
+        searchDonorInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
