@@ -18,16 +18,14 @@
             --light-gray: #f8f9fa;
             --medium-gray: #e9ecef;
             --dark-gray: #6c757d;
-            --text-color: #343a40;
+            --text-color: #343a40; /* نص أساسي داكن */
             --heading-color: #212529;
             --border-color: #ced4da;
             --table-border-color: #e0e0e0;
             --shadow-subtle: rgba(0, 0, 0, 0.1);
 
-            --ready-donor-bg: #e6ffe6;
-            --ready-donor-text: #28a745;
-            --not-ready-donor-bg: #ffe6e6;
-            --not-ready-donor-text: #dc3545;
+            --ready-donor-bg: #e6ffe6; /* أخضر فاتح جداً */
+            --not-ready-donor-bg: #ffe6e6; /* أحمر فاتح جداً */
             --table-header-bg: var(--primary-red);
         }
 
@@ -48,31 +46,31 @@
 
         .container {
             background-color: #fff;
-            padding: 30px; /* تم تقليل البادينج العام للحاوية */
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 5px 20px var(--shadow-subtle);
             max-width: 90%;
             width: 800px;
             box-sizing: border-box;
-            margin-top: 20px; /* تم تقليل الهامش العلوي */
+            margin-top: 20px;
         }
 
         h1 {
             color: var(--primary-red);
-            margin-bottom: 20px; /* تم تقليل الهامش السفلي */
-            font-size: 2.2em; /* تم تقليل حجم الخط قليلاً */
+            margin-bottom: 20px;
+            font-size: 2.2em;
             font-weight: 700;
         }
 
         .search-section {
             background-color: var(--medium-gray);
-            padding: 15px; /* تم تقليل البادينج هنا */
+            padding: 15px;
             border-radius: 10px;
-            margin-bottom: 30px; /* تم تقليل الهامش السفلي */
+            margin-bottom: 30px;
             box-shadow: inset 0 1px 5px rgba(0,0,0,0.05);
             display: flex;
             flex-wrap: wrap;
-            gap: 15px; /* تم تقليل الفجوة */
+            gap: 15px;
             justify-content: center;
             align-items: flex-end;
         }
@@ -80,8 +78,8 @@
         .search-section h2 {
             width: 100%;
             color: var(--heading-color);
-            margin-bottom: 15px; /* تم تقليل الهامش السفلي */
-            font-size: 1.6em; /* تم تقليل حجم الخط قليلاً */
+            margin-bottom: 15px;
+            font-size: 1.6em;
             font-weight: 700;
             text-align: center;
         }
@@ -94,7 +92,7 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 6px; /* تم تقليل الهامش السفلي */
+            margin-bottom: 6px;
             font-weight: 700;
             color: var(--text-color);
             text-align: right;
@@ -102,10 +100,10 @@
 
         .form-group select {
             width: 100%;
-            padding: 10px; /* تم تقليل البادينج هنا */
+            padding: 10px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            font-size: 0.95em; /* تم تقليل حجم الخط قليلاً */
+            font-size: 0.95em;
             color: var(--text-color);
             box-sizing: border-box;
             background-color: #fff;
@@ -115,9 +113,9 @@
             appearance: none;
             background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%2C114.7L154.5%2C247.3c-2.3%2C2.3-5.3%2C3.5-8.5%2C3.5s-6.2-1.2-8.5-3.5L5.4%2C114.7c-4.6-4.6-4.6-12%2C0-16.6s12-4.6%2C16.6%2C0L146%2C208.5c2.3%2C2.3%2C6.2%2C2.3%2C8.5%2C0l123.9-123.9c4.6-4.6%2C12-4.6%2C16.6%2C0S291.6%2C110.1%2C287%2C114.7z%22%2F%3E%3C%2Fsvg%3E');
             background-repeat: no-repeat;
-            background-position: left 10px center; /* تم تعديل الموضع */
-            background-size: 10px; /* تم تقليل الحجم */
-            padding-left: 25px; /* تم تقليل البادينج الأيسر */
+            background-position: left 10px center;
+            background-size: 10px;
+            padding-left: 25px;
         }
 
         .form-group select:focus {
@@ -129,25 +127,25 @@
         .action-buttons {
             width: 100%;
             text-align: center;
-            margin-top: 5px; /* تم تقليل الهامش العلوي */
+            margin-top: 5px;
             display: flex;
             justify-content: center;
-            gap: 10px; /* تم تقليل الفجوة */
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .action-button {
             background-color: var(--primary-red);
             color: white;
-            padding: 12px 25px; /* تم تقليل البادينج هنا */
+            padding: 12px 25px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.1em; /* تم تقليل حجم الخط قليلاً */
+            font-size: 1.1em;
             font-weight: 700;
             transition: background-color 0.3s ease, transform 0.2s ease;
             flex-grow: 1;
-            max-width: 200px; /* تم تقليل أقصى عرض */
+            max-width: 200px;
         }
 
         .action-button:hover {
@@ -170,14 +168,14 @@
         }
 
         .search-results-section {
-            padding-top: 15px; /* تم تقليل البادينج العلوي */
+            padding-top: 15px;
             text-align: right;
         }
 
         .search-results-section h2 {
             color: var(--heading-color);
-            margin-bottom: 20px; /* تم تقليل الهامش السفلي */
-            font-size: 1.8em; /* تم تقليل حجم الخط قليلاً */
+            margin-bottom: 20px;
+            font-size: 1.8em;
             font-weight: 700;
             text-align: center;
         }
@@ -185,7 +183,7 @@
         .donors-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px; /* تم تقليل الهامش العلوي */
+            margin-top: 15px;
             box-shadow: 0 2px 10px var(--shadow-subtle);
             border-radius: 8px;
             overflow: hidden;
@@ -194,10 +192,11 @@
         .donors-table th,
         .donors-table td {
             border: 1px solid var(--table-border-color);
-            padding: 8px 10px; /* تقليل ارتفاع الصفوف هنا */
+            padding: 8px 10px;
             text-align: right;
             vertical-align: middle;
-            font-size: 0.9em; /* تقليل حجم الخط في الخلايا */
+            font-size: 0.9em;
+            color: var(--text-color); /* جعل لون النص أسود */
         }
 
         .donors-table thead th {
@@ -205,7 +204,7 @@
             color: white;
             font-weight: 700;
             text-align: center;
-            padding: 10px 10px; /* تقليل بادينج رأس الجدول */
+            padding: 10px 10px;
         }
 
         .donors-table thead tr:first-child th:first-child {
@@ -223,42 +222,41 @@
             background-color: #d6d6d6;
         }
 
+        /* لون الخلفية للصفوف يعكس حالة المتبرع، مع الحفاظ على لون النص أسود */
         .ready-for-donation {
             background-color: var(--ready-donor-bg);
-            color: var(--ready-donor-text);
         }
         .ready-for-donation td {
             background-color: var(--ready-donor-bg);
-            color: var(--ready-donor-text);
+            color: var(--text-color); /* نص أسود */
         }
 
         .not-ready-for-donation {
             background-color: var(--not-ready-donor-bg);
-            color: var(--not-ready-donor-text);
         }
         .not-ready-for-donation td {
             background-color: var(--not-ready-donor-bg);
-            color: var(--not-ready-donor-text);
+            color: var(--text-color); /* نص أسود */
         }
 
         .no-results-message, .loading-message {
             text-align: center;
             color: var(--dark-gray);
-            font-size: 1em; /* تم تقليل حجم الخط */
+            font-size: 1em;
             margin-top: 15px;
         }
 
         .loading-message {
             color: var(--primary-red);
-            font-size: 1.1em; /* تم تقليل حجم الخط */
+            font-size: 1.1em;
         }
 
         .error-message {
             background-color: var(--not-ready-donor-bg);
-            color: var(--not-ready-donor-text);
-            border: 1px solid var(--not-ready-donor-text);
-            padding: 10px; /* تم تقليل البادينج */
-            margin-top: 15px; /* تم تقليل الهامش العلوي */
+            color: var(--text-color); /* نص أسود */
+            border: 1px solid var(--dark-red); /* حدود أغمق للوضوح */
+            padding: 10px;
+            margin-top: 15px;
             border-radius: 8px;
             text-align: center;
             font-weight: 700;
@@ -271,10 +269,10 @@
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 4px 8px; /* تم تقليل البادينج */
-            margin-right: 5px; /* تم تقليل الهامش */
+            padding: 4px 8px;
+            margin-right: 5px;
             cursor: pointer;
-            font-size: 0.8em; /* تم تقليل حجم الخط */
+            font-size: 0.8em;
             transition: background-color 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -290,14 +288,14 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 4px; /* تم تقليل الفجوة */
+            gap: 4px;
             text-decoration: none;
-            color: inherit;
+            color: var(--text-color); /* لون الرابط أسود */
         }
 
         @media (max-width: 768px) {
             .container {
-                padding: 20px 15px; /* تقليل البادينج أكثر على الجوال */
+                padding: 20px 15px;
                 margin-top: 15px;
             }
             h1 {
@@ -336,7 +334,7 @@
                 margin-top: 10px;
             }
             .donors-table th, .donors-table td {
-                padding: 6px 8px; /* تقليل بادينج الخلايا أكثر */
+                padding: 6px 8px;
             }
             .donors-table th:nth-child(6),
             .donors-table td:nth-child(6) {
@@ -424,7 +422,7 @@
             searchMessageDiv.style.display = 'block';
             setTimeout(() => {
                 searchMessageDiv.style.display = 'none';
-            }, 5000); // Hide message after 5 seconds
+            }, 5000);
         };
 
         const performSearch = async () => {
@@ -469,6 +467,11 @@
                 snapshot.forEach((doc) => {
                     const donor = doc.data();
 
+                    // التأكد من وجود البيانات الأساسية قبل العرض لتجنب صفوف "غير متوفر" الكاملة
+                    if (!donor.Name && !donor.PhoneNumber && !donor.Bloode && !donor.Address) {
+                        return; // تخطي هذا المستند إذا كانت جميع حقوله فارغة
+                    }
+
                     let formattedLastDonationDate = 'غير متوفر';
                     let donationStatusClass = '';
                     let donationStatusText = '';
@@ -485,8 +488,10 @@
                             donationStatusText = 'غير جاهز';
                         }
                     } else {
+                        // إذا لم يتم تقديم تاريخ آخر تبرع، اعتبره جاهزاً مبدئياً
+                        // أو يمكن تغيير هذا الافتراض بناءً على سياسة التطبيق
                         donationStatusClass = 'ready-for-donation';
-                        donationStatusText = 'غير معروف';
+                        donationStatusText = 'غير معروف (يعتبر جاهزًا)'; // لتوضيح الحالة
                     }
 
                     donorsHtml += `
@@ -540,4 +545,4 @@
         }
     </script>
 </body>
-        </html>
+</html>
