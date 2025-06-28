@@ -554,11 +554,12 @@
             if (adminPasswordInput.value === 'magam') {
                 passwordGate.style.display = 'none';
                 mainContainer.style.display = 'block';
-                displayDonors();
+                displayDonors(); // تأكد أن هذا السطر موجود وغير معلق
             } else {
                 passwordMessage.textContent = 'كلمة مرور خاطئة. حاول مرة أخرى.';
                 passwordMessage.style.display = 'block';
             }
+    
         });
 
         addDonorForm.addEventListener('submit', async (e) => {
